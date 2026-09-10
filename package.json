@@ -11,7 +11,7 @@
     "hono": "^4.6.0",
     "@hono/zod-validator": "^0.4.1",
     "zod": "^3.23.8",
-    "@libsql/client/web": "^0.14.0"
+    "@libsql/client": "^0.14.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240909.0",
