@@ -1,0 +1,18 @@
+name = "media-api"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+# R2 bucket — native binding (no S3 SDK needed)
+[[r2_buckets]]
+binding = "MY_BUCKET"
+bucket_name = "media-bucket"
+
+# Non-secret vars
+[vars]
+TURSO_DATABASE_URL = "libsql://your-db-your-org.turso.io"
+# PUBLIC_MEDIA_URL = "https://media.yourdomain.com"  # optional custom domain
+
+# Secrets (set via CLI, never commit)
+# wrangler secret put TURSO_AUTH_TOKEN
+# wrangler secret put API_KEY
