@@ -21,9 +21,9 @@ export type MediaResponse = {
   title: string;
   description: string | null;
   country: string | null;
+  type: MediaType; // Explicitly requested at root level
   media: {
     url: string;
-    type: MediaType;
     mimeType: string;
     size: number;
     width?: number | null;
@@ -39,9 +39,9 @@ export function toResponse(r: MediaRecord): MediaResponse {
     title: r.title,
     description: r.description,
     country: r.country,
+    type: r.media_type,
     media: {
       url: r.file_url,
-      type: r.media_type,
       mimeType: r.mime_type,
       size: r.size,
       width: r.width,
