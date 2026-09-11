@@ -83,7 +83,7 @@ app.post("/", async (c) => {
   return c.json({ success: true, data: toResponse(row) }, 201);
 });
 
-/* ---------------- GET /api/media ---------------- */
+/* ---------------- GET /api/media (List all) ---------------- */
 const listQuery = z.object({
   page:    z.coerce.number().int().min(1).default(1),
   limit:   z.coerce.number().int().min(1).max(100).default(20),
@@ -111,8 +111,7 @@ app.get("/", zValidator("query", listQuery), async (c) => {
 
   const [rows, countRes] = await Promise.all([
     db.execute({
-      sql: `SELECT * FROM media ${whereSql}
-            ORDER BY created_at DESC LIMIT ? OFFSET ?`,
+      sql: `SELECT * FROM media ${whereSql} ORDER BY created_at DESC LIMIT ? OFFSET ?`,
       args: [...args, q.limit, offset],
     }),
     db.execute({
@@ -135,14 +134,23 @@ app.get("/", zValidator("query", listQuery), async (c) => {
   });
 });
 
-/* ---------------- GET /api/media/:id ---------------- */
+/* ---------------- GET /api/media/:id (Get single) ---------------- */
 app.get("/:id", async (c) => {
   const id = c.req.param("id");
   const db = getDb(c.env);
-  const res = await db.execute({ sql: `SELECT * FROM media WHERE id = ?`, args: [id] });
+  
+  const res = await db.execute({ 
+    sql: `SELECT * FROM media WHERE id = ?`, 
+    args: [id] 
+  });
+  
   const row = res.rows[0] as unknown as MediaRecord | undefined;
-  if (!row) return c.json({ error: "Not found" }, 404);
-  return c.json({ success: true, data: toResponse(row) });
+  if (!row) return c.json({ error: "Media not found" }, 404);
+  
+  return c.json({ 
+    success: true, 
+    data: toResponse(row) 
+  });
 });
 
 /* ---------------- DELETE /api/media/:id ---------------- */
