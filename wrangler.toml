@@ -11,7 +11,7 @@ bucket_name = "voyage-storage"
 # Non-secret vars
 [vars]
 TURSO_DATABASE_URL = "libsql://voyage-api-binarykevz.aws-ap-northeast-1.turso.io"
-# PUBLIC_MEDIA_URL = "https://media.yourdomain.com"  # optional custom domain
+PUBLIC_MEDIA_URL = "https://pub-2f29e272110c41e1afccab3d181a8286.r2.dev"  
 
 # Secrets (set via CLI, never commit)
 # wrangler secret put TURSO_AUTH_TOKEN
